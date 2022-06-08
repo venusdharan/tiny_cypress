@@ -2,23 +2,25 @@
 
 const fs = require("fs");
 const { io } = require("socket.io-client");
-const axios = require("axios")
+const cypress = require('cypress')
 
-var project_path = process.cwd();
+console.log("Tiny Cypress Remote Runner");
 
-var package_json = require(project_path + "/package.json");
+// const axios = require("axios")
 
-var cypress_json = null;
+// var project_path = process.cwd();
 
-if(fs.existsSync(project_path + "/cypress.json")){
-    cypress_json = fs.readFileSync(project_path + "/cypress.json");
-}else{
+// var package_json = require(project_path + "/package.json");
 
-}
+// var cypress_json = null;
 
-const socket = io("http://localhost:3500", {
-  reconnectionDelayMax: 10000,
-});
+// if(fs.existsSync(project_path + "/cypress.json")){
+//     cypress_json = fs.readFileSync(project_path + "/cypress.json");
+// }else{
+
+// }
+
+const socket = io("http://localhost:4500");
 
 socket.on("connect", () => {
     console.log(socket.id); // "G5p5..."
@@ -26,4 +28,5 @@ socket.on("connect", () => {
 
 //const cypress = require('cypress')
 
-console.log(package_json)
+
+

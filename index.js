@@ -67,3 +67,4 @@ module.exports.init = async function (on, config, settings) {
 var on = null;
 var config = null;
 var settings = null;
+

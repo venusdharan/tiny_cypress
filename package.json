@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "runner": "runner.js"
+    "tiny_cypress": "tiny_cypress.js"
   },
   "keywords": [],
   "author": "",

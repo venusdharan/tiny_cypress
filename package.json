@@ -16,6 +16,7 @@
     "axios": "^0.27.2",
     "cypress": "^10.0.3",
     "socket.io-client": "^4.5.1",
+    "systeminformation": "^5.11.20",
     "yargs": "^17.5.1"
   }
 }

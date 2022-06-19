@@ -29,45 +29,45 @@ module.exports.init = async function (token,baseUrl) {
 
 module.exports.SubmitALL = async function (data) {
     var res = await this.axios.post("/submit_all", data);
-    return res.data;
+    return res;
 }
 
 module.exports.BeforeRun = async function (data) {
     var res = await this.axios.post("/before_run", data);
-    return res.data;
+    return res;
 }
 
 module.exports.AfterRun = async function (data) {
     var res = await this.axios.post("/after_run", data);
-    return res.data;
+    return res;
 }
 
 module.exports.BeforeSpec = async function (data) {
     var res = await this.axios.post("/before_spec", data);
-    return res.data;
+    return res;
 }
 
 module.exports.AfterSpec = async function (data) {
     var res = await this.axios.post("/after_spec", data);
-    return res.data;
+    return res;
 }
 
 module.exports.BeforeBrowserLaunch = async function (data) {
     var res = await this.axios.post("/before_browser_launch", data);
-    return res.data;
+    return res;
 }
 
 module.exports.AfterScreenshot= async function (data) {
     var res = await this.axios.post("/before_browser_launch", data);
-    return res.data;
+    return res;
 }
 
 module.exports.FilePreprocessor= async function (data) {
     var res = await this.axios.post("/filepreprocessor", data);
-    return res.data;
+    return res;
 }
 
 module.exports.Task= async function (data) {
     var res = await this.axios.post("/task", data);
-    return res.data;
+    return res;
 }

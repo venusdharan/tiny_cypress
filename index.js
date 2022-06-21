@@ -1,6 +1,7 @@
 var api = require("./api")
 const path = require("path");
 const fs = require("fs");
+const Confirm = require('prompt-confirm');
 module.exports.init = async function (on, config, settings) {
     console.log("tiny_cypress init");
     var project_path = process.cwd();
@@ -26,8 +27,20 @@ module.exports.init = async function (on, config, settings) {
     //if (!settings) throw new Error('Settings not found');
     api.init(package_json.tiny_cypress.token,package_json.tiny_cypress.baseUrl);
 
+    const prompt = new Confirm({
+        name: 'sync_mode', 
+        message: 'Old Tests are found. Do you want to sync with server? or Clear old tests?',
+    });
+   var ans = await prompt.ask();
+   console.log(ans);
+
+    if(fs.existsSync(project_path + "tiny_cypress/test.json")){
+       
+    }
+
     on('after:run',async (results) => {
-        results.project_id = settings.project_id;
+        results.project_id = package_json.tiny_cypress.project_id;
+        results.agent_name = package_json.tiny_cypress.agent_name;
         await api.AfterRun(results);
     })
 
@@ -46,7 +59,8 @@ module.exports.init = async function (on, config, settings) {
         if(spec){
             data.spec= spec;
         }
-        data.project_id = settings.project_id;
+        data.project_id = package_json.tiny_cypress.project_id;
+        data.agent_name = package_json.tiny_cypress.agent_name;
         await api.AfterSpec(data);
     })
 
@@ -61,7 +75,8 @@ module.exports.init = async function (on, config, settings) {
 
     on('before:run', async (details) => {
         try {
-            details.project_id = settings.project_id;
+            details.project_id = package_json.tiny_cypress.project_id;
+            details.agent_name = package_json.tiny_cypress.agent_name;
             var d = await api.BeforeRun(details);
             console.log(d)
         } catch (error) {
@@ -74,7 +89,8 @@ module.exports.init = async function (on, config, settings) {
             spec : spec,
           
         }
-        data.project_id = settings.project_id;
+        data.project_id = package_json.tiny_cypress.project_id;
+        data.agent_name = package_json.tiny_cypress.agent_name;
         await api.BeforeSpec(data);
     })
 

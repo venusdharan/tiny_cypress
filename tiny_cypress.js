@@ -8,6 +8,7 @@ var status = {}
 status.agent_status = "connected";
 status.agent_running = "stopped";
 const path = require("path");
+const Confirm = require('prompt-confirm');
 
 async function start() {
     try {
@@ -34,6 +35,12 @@ async function start() {
             console.log("Tiny Cypress Remote Runner");
             
             const socket = io(package_json.tiny_cypress.server_url);
+            const prompt = new Confirm({
+                name: 'sync_mode', 
+                message: 'Old Tests are found. Do you want to sync with server? or Clear old tests?',
+            });
+            var ans = await prompt.ask();
+            console.log(ans);
 
             socket.on("connect", async function () {
                 console.log("Connected to Tiny Cypress Server");
@@ -167,7 +174,7 @@ async function start() {
 
 
     } catch (error) {
-
+        console.log(error)
         console.log("cypress not installed");
         console.log("Install cypress with: npm install cypress");
         console.log("Then run: npm run cypress:run");
@@ -198,6 +205,7 @@ start()
 
 
 //const cypress = require('cypress')
+
 
 
 

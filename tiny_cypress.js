@@ -3,9 +3,11 @@
 const fs = require("fs");
 const { io } = require("socket.io-client");
 const agent_info = require("./agent_info");
+const spawn = require('child_process').spawn;
 var status = {}
 status.agent_status = "connected";
 status.agent_running = "stopped";
+const path = require("path");
 
 async function start() {
     try {
@@ -30,6 +32,7 @@ async function start() {
 
         if (package_json.tiny_cypress) {
             console.log("Tiny Cypress Remote Runner");
+            
             const socket = io(package_json.tiny_cypress.server_url);
 
             socket.on("connect", async function () {
@@ -77,7 +80,7 @@ async function start() {
                                 result : result,
                                 status: "finished",
                             }
-                            console.log("Cypress Run Result",res);
+                           // console.log("Cypress Run Result",res);
                             status.agent_running = "stopped";
                             socket.emit("agent_result", res);
                         })
@@ -87,7 +90,7 @@ async function start() {
                                 result : err,
                                 status: "err",
                             }
-                            console.log("Cypress Run Result",res);
+                          //  console.log("Cypress Run Result",res);
                             status.agent_running = "stopped";
                             socket.emit("agent_result", res);
                         })
@@ -112,6 +115,42 @@ async function start() {
 
             socket.on("agent_status_send", function (data) {
                 socket.emit("agent_status_recv", status);
+            });
+
+            socket.on("ui_after_spec_media", async function (data) {
+                console.log("UI After Spec Media");
+                console.log(data,__dirname)
+                console.log("Agent media request");
+                var base_data  = Buffer.from(JSON.stringify(data), 'utf-8');
+                var base_url = Buffer.from( package_json.tiny_cypress.server_url, 'utf-8');
+                var child = spawn('node', [path.join(__dirname,'./uploader.js'),base_data.toString('base64'),base_url.toString('base64')]);
+                child.stdout.setEncoding('utf8');
+                child.stdout.on('data', function (data) {
+                    //Here is where the output goes
+            
+                    console.log('stdout: ' + data);
+            
+                    //data=data.toString();
+                    //scriptOutput+=data;
+                });
+            
+                child.stderr.setEncoding('utf8');
+                child.stderr.on('data', function (data) {
+                    //Here is where the error output goes
+            
+                    console.log('stderr: ' + data);
+            
+                    //data=data.toString();
+                    //scriptOutput+=data;
+                });
+            
+                child.on('close', function (code) {
+                    //Here you can get the exit code of the script
+            
+                    console.log('closing code: ' + code);
+            
+                    //console.log('Full output of script: ', scriptOutput);
+                });
             });
 
 
@@ -159,6 +198,7 @@ start()
 
 
 //const cypress = require('cypress')
+
 
 
 

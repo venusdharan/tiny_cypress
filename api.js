@@ -28,46 +28,100 @@ module.exports.init = async function (token,baseUrl) {
 }
 
 module.exports.SubmitALL = async function (data) {
-    var res = await this.axios.post("/submit_all", data);
-    return res;
+    try {
+        var res = await this.axios.post("/submit_all", data);
+        return res; 
+    } catch (error) {
+        console.log(error)
+        return false;
+    }
+    
 }
 
 module.exports.BeforeRun = async function (data) {
-    var res = await this.axios.post("/before_run", data);
-    return res;
+    try {
+        var res = await this.axios.post("/before_run", data);
+        return res;
+    } catch (error) {
+        console.log(error)
+        return false;
+    }
+   
 }
 
 module.exports.AfterRun = async function (data) {
-    var res = await this.axios.post("/after_run", data);
-    return res;
+    try {
+        var res = await this.axios.post("/after_run", data);
+        return res;
+    } catch (error) {
+        console.log(error)
+        return false;
+    }
+  
 }
 
 module.exports.BeforeSpec = async function (data) {
-    var res = await this.axios.post("/before_spec", data);
-    return res;
+    try {
+        var res = await this.axios.post("/before_spec", data);
+        return res;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+    
 }
 
 module.exports.AfterSpec = async function (data) {
-    var res = await this.axios.post("/after_spec", data);
-    return res;
+    try {
+        var res = await this.axios.post("/after_spec", data);
+        return res; 
+    } catch (error) {
+        console.log(error)
+        return false;
+    }
+    
 }
 
 module.exports.BeforeBrowserLaunch = async function (data) {
-    var res = await this.axios.post("/before_browser_launch", data);
-    return res;
+    try {
+        var res = await this.axios.post("/before_browser_launch", data);
+        return res;
+    } catch (error) {
+        console.log(error)
+        return false;
+    }
+  
 }
 
 module.exports.AfterScreenshot= async function (data) {
-    var res = await this.axios.post("/before_browser_launch", data);
-    return res;
+    try {
+        var res = await this.axios.post("/before_browser_launch", data);
+        return res;
+    } catch (error) {
+        console.log(error)
+        return false;
+    }
+   
 }
 
 module.exports.FilePreprocessor= async function (data) {
-    var res = await this.axios.post("/filepreprocessor", data);
-    return res;
+    try {
+        var res = await this.axios.post("/filepreprocessor", data);
+        return res;
+    } catch (error) {
+        console.log(error)
+        return false;
+    }
+    
 }
 
 module.exports.Task= async function (data) {
-    var res = await this.axios.post("/task", data);
-    return res;
+    try {
+        var res = await this.axios.post("/task", data);
+        return res;  
+    } catch (error) {
+        console.log(error)
+        return false;
+    }
+    
 }

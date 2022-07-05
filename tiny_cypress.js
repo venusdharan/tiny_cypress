@@ -124,6 +124,10 @@ async function start() {
                 socket.emit("agent_status_recv", status);
             });
 
+            socket.on("agent_specs_send", function (data) {
+                socket.emit("agent_specs_recv", status);
+            });
+
             socket.on("ui_after_spec_media", async function (data) {
                 console.log("UI After Spec Media");
                 console.log(data,__dirname)
